@@ -12,6 +12,8 @@
       justify-content: center;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
+      overflow: hidden;
+      position: relative;
     }
 
     .card {
@@ -21,6 +23,8 @@
       text-align: center;
       box-shadow: 0 15px 40px rgba(0,0,0,0.2);
       max-width: 400px;
+      z-index: 1;
+      position: relative;
     }
 
     h1 {
@@ -40,6 +44,7 @@
       cursor: pointer;
       margin: 10px;
       transition: 0.3s;
+      position: relative;
     }
 
     #yes {
@@ -55,6 +60,19 @@
       background: #ddd;
       position: absolute;
     }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: #ff4d6d;
+      animation: floatUp 2s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-200px) scale(1.5); }
+    }
   </style>
 </head>
 <body>
@@ -69,10 +87,11 @@
   <script>
     function yesClicked() {
       document.getElementById("card").innerHTML = `
-        <h1>YAYYY 💘</h1>
-        <p>Priti, you just made my heart very, very happy.</p>
-        <p>Happy Valentine’s Day 💖</p>
+        <h1>Good choice 😌</h1>
+        <p>Statistics show you’re 100% happier now.</p>
+        <p>Hehehe I love you baby 💖</p>
       `;
+      launchHearts(30);
     }
 
     function moveNo() {
@@ -82,8 +101,19 @@
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
     }
+
+    function launchHearts(count) {
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.top = window.innerHeight + 'px';
+        heart.innerText = '💖';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 2000);
+      }
+    }
   </script>
 
 </body>
 </html>
-
